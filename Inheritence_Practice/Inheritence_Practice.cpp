@@ -37,7 +37,7 @@ public:
 	}
 };
 
-class Company : virtual public Employee
+class Company :  public Employee
 {
 	char* m_Cname;
 
@@ -49,14 +49,14 @@ public:
 		m_Cname[0] = '\0';
 	}
 
-	Company(const char* Cname) 
+	Company(int id , const char * name,const char* Cname) : Employee (id ,name)
 	{
 		m_Cname = new char[strlen(Cname) + 1];
 		strcpy_s(m_Cname, -1, Cname);
 	}
 	void Display()
 	{
-
+		Employee :: Display();
 		
 		cout << "The Company name is : " << m_Cname << "\n";
 	}
@@ -68,7 +68,7 @@ public:
 
 };
 
-class Client : virtual public Employee, public Company
+class Client :  public Company
 {
 	char* m_Clname;
 
@@ -80,7 +80,7 @@ public:
 		m_Clname[0] = '\0';
 	}
 
-	Client(int id, const char* name, const char* Cname, const char* Clname) : Employee(id, name), Company(Cname)
+	Client(int id, const char* name,const char* Cname, const char* Clname) :  Company(id,name ,Cname)
 	{
 		m_Clname = new char[strlen(Clname) + 1];
 		strcpy_s(m_Clname, -1, Clname);
@@ -88,7 +88,7 @@ public:
 	void Display()
 	{
 
-		Employee::Display();
+		
 		Company::Display();
 		cout << "The Client name is : " << m_Clname << "\n" << endl;
 	}
